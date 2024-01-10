@@ -53,3 +53,6 @@ class Dealer(Player):
             cards_Sum += card.get_number()
 
         return cards_Sum
+
+    def add_card(self, card):
+        self.__lst.append(card)
