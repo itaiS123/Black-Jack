@@ -6,53 +6,68 @@ def main():
 
     # player cards
     card1 = deck.get_card()
+    if card1.get_number() == 1:
+        answer = input("choose 1 or 11:")
+        if answer == "1":
+            card1.set_number(1)
+        else:
+            card1.set_number(11)
+
     card2 = deck.get_card()
+    if card1.get_number() == 11:
+        card2.set_number(1)
 
     player = Player.Player(card1, card2)
-    print(card1)
-    print(card2)
-    sumOfPlayer = sum(card.get_number() for card in player.get_lst())
-    print(f"sum of player is: {sumOfPlayer}")
+    player.print_sum_of_player_and_cards()
     print()
 
     # dealer cards
     card3 = deck.get_card()
+    if card1.get_number() == 1:
+        answer = input("choose 1 or 11:")
+        if answer == "1":
+            card1.set_number(1)
+        else:
+            card1.set_number(11)
+
     card4 = deck.get_card()
+    if card1.get_number() == 11:
+        card2.set_number(1)
+
     dealer = Player.Dealer(card3, card4)
     print(f"dealer's hand is {card4.__str__()}")
 
 
     while player.get_money() > 0:
-        if sum(card.get_number() for card in player.get_lst()) <= 21:
+        if player.get_sum_of_player() <= 21:
             call = input("Hit or Stand ? ")
             if call == "hit":
                 tmpCard = deck.get_card()
                 player.add_card(tmpCard)
-                print(f"sum of player is: {sum(card.get_number() for card in player.get_lst())}")
+                player.print_sum_of_player_and_cards()
 
             else:
-                print(f"dealer's hand is {card3.__str__()}")
-                print(f"dealer's hand is {card4.__str__()}")
-                sumOfDealer = sum(card.get_number() for card in dealer.get_lst())
-                print(f"sum of dealer is: {sumOfDealer}")
+                print("dealer's hand is: \n")
+                dealer.print_sum_of_dealer_and_cards()
                 print()
-                while sumOfDealer < 17:
+
+                while dealer.get_sum_of_dealer() < 17:
                     tmpCard = deck.get_card()
+                    if tmpCard.get_number() == 1:
+                        if dealer.get_sum_of_dealer() + 11 > 21:
+                            tmpCard.set_number(1)
+
                     dealer.add_card(tmpCard)
-                    sumOfDealer += tmpCard.get_number()
+                    dealer.print_sum_of_dealer_and_cards()
+                    print()
 
-                    print(f"dealer's hand is: {tmpCard}")
-                    print(f"sum of dealer is: {sumOfDealer}")
-
-                if sumOfDealer < sumOfPlayer or sumOfDealer > 21:
+                if dealer.get_sum_of_dealer() < player.get_sum_of_player() or dealer.get_sum_of_dealer() > 21:
                     print("YOU ARE THE CHAMPION !!!!!")
                     break
 
                 else:
                     print("LOSER, GAME ENDED")
                     break
-
-
 
         else:
             print("LOSER, GAME ENDED")

@@ -12,26 +12,29 @@ class Card:
     def get_number(self):
         return self.__number
 
+    def set_number(self, number):
+        self.__number = number
+
     def __str__(self):
-        return f"color: {colors[self.__color]}, number: {self.__number}"
+        return f"color: {self.__color}, number: {self.__number}"
 
 
 class Deck:
     def __init__(self):
-        self.__deck = {'heart': 13, 'diamond': 13, 'clubs': 13, 'spades': 13}
+        self.__deck = []
+        for number in range(1, 14):
+            if number > 10:
+                number = 10
 
-    def get_deck(self):
-        return self.__deck
+            for color in colors:
+                card = Card(color, number)
+                self.__deck.append(card)
 
+        random.shuffle(self.__deck)
 
     def get_card(self):
-        color = random.randint(0, 3)
-        if self.__deck[colors[color]] > 0:
-            maxNumOfCards = self.__deck[colors[color]]
-            number = random.randint(1, maxNumOfCards)
-            card = Card(color, number)
-            self.__deck[colors[color]] -= 1
-            return card
+        return self.__deck.pop()
 
-        else:
-            color = random.randint(1, 5)
+    def get_first_cards(self):
+        lst = (Deck.get_card(self), Deck.get_card(self))
+        return lst
