@@ -7,11 +7,7 @@ def main():
     # player cards
     card1 = deck.get_card()
     if card1.get_number() == 1:
-        answer = input("choose 1 or 11: ")
-        if answer == "1":
-            card1.set_number(1)
-        else:
-            card1.set_number(11)
+        card1.set_number(11)
 
     card2 = deck.get_card()
     if card1.get_number() == 11:
@@ -27,29 +23,31 @@ def main():
 
     # dealer cards
     card3 = deck.get_card()
-    if card1.get_number() == 1:
-        answer = input("choose 1 or 11: ")
-        if answer == "1":
-            card1.set_number(1)
-        else:
-            card1.set_number(11)
+    if card3.get_number() == 1:
+        card3.set_number(11)
 
     card4 = deck.get_card()
-    if card1.get_number() == 11:
-        card2.set_number(1)
+    if card3.get_number() == 11:
+        card4.set_number(1)
+    elif card1.get_number() == 10:
+        card2.set_number(11)
 
     dealer = Player.Dealer(card3, card4)
     print(f"dealer's hand is {card4.__str__()}")
 
-    while player.get_money() > 0:
-        bet = input("place your bet: ")
-        while int(bet) > money:
-            bet = input("invalid bet, place valid bet: ")
+    bet = input("place your bet: ")
+    while int(bet) > money:
+        bet = input("invalid bet, place valid bet: ")
 
+    while player.get_money() > 0:
         if player.get_sum_of_player() <= 21:
             call = input("Hit or Stand ? ")
             if call == "hit":
                 tmpCard = deck.get_card()
+                if tmpCard.get_number() == 1:
+                    if player.get_sum_of_player() + 11 < 21:
+                        tmpCard.set_number(11)
+
                 player.add_card(tmpCard)
                 player.print_sum_of_player_and_cards()
 
@@ -71,27 +69,34 @@ def main():
                 if dealer.get_sum_of_dealer() < player.get_sum_of_player() or dealer.get_sum_of_dealer() > 21:
                     print("YOU ARE THE CHAMPION !!!!!")
                     money += int(bet)
+                    print(f"you got {money}$")
+                    print("______________________________________ \n")
+                    break
 
                 else:
                     print("LOSER, GAME ENDED")
                     money -= int(bet)
                     print(f"you got {money}$")
-                    print()
+                    print("______________________________________ \n")
                     break
 
         else:
             print("LOSER, GAME ENDED")
+            print(f"you got {money}$")
+            print("______________________________________ \n")
             break
 
 
     while player.get_money() > 0:
         card1 = deck.get_card()
         if card1.get_number() == 1:
-            answer = input("choose 1 or 11: ")
-            if answer == "1":
-                card1.set_number(1)
-            else:
-                card1.set_number(11)
+            card1.set_number(11)
+
+        card2 = deck.get_card()
+        if card1.get_number() == 11:
+            card2.set_number(1)
+        elif card1.get_number() == 10:
+            card2.set_number(11)
 
         card2 = deck.get_card()
         if card1.get_number() == 11:
@@ -102,20 +107,19 @@ def main():
         player.print_sum_of_player_and_cards()
 
         card3 = deck.get_card()
-        if card1.get_number() == 1:
-            answer = input("choose 1 or 11: ")
-            if answer == "1":
-                card1.set_number(1)
-            else:
-                card1.set_number(11)
+        if card3.get_number() == 1:
+            card3.set_number(11)
 
         card4 = deck.get_card()
-        if card1.get_number() == 11:
-            card2.set_number(1)
+        if card3.get_number() == 11:
+            card4.set_number(1)
+        elif card1.get_number() == 10:
+            card2.set_number(11)
 
         dealer = Player.Dealer(card3, card4)
         print(f"dealer's hand is {card4.__str__()}")
 
+        print(f"you got {money}$")
         bet = input("place your bet: ")
         while int(bet) > money:
             bet = input("invalid bet, place valid bet: ")
@@ -124,6 +128,10 @@ def main():
             call = input("Hit or Stand ? ")
             if call == "hit":
                 tmpCard = deck.get_card()
+                if tmpCard.get_number() == 1:
+                    if player.get_sum_of_player() + 11 < 21:
+                        tmpCard.set_number(11)
+
                 player.add_card(tmpCard)
                 player.print_sum_of_player_and_cards()
 
@@ -145,15 +153,17 @@ def main():
                 if dealer.get_sum_of_dealer() < player.get_sum_of_player() or dealer.get_sum_of_dealer() > 21:
                     print("YOU ARE THE CHAMPION !!!!!")
                     money += int(bet)
+                    print("______________________________________ \n")
+
 
                 else:
                     print("LOSER, GAME ENDED")
                     money -= int(bet)
-                    print(f"you got {money}$")
-                    print()
+                    print("______________________________________ \n")
 
         else:
             print("LOSER, GAME ENDED")
+            print()
 
 
 if __name__ == '__main__':
