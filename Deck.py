@@ -1,6 +1,6 @@
 import random
 
-colors = ['heart', 'diamond', 'clubs', 'spades']
+colors = ['\u2661', '\u2662', '\u2667', '\u2664']
 class Card:
     def __init__(self, color, number):
         self.__color = color
@@ -16,7 +16,7 @@ class Card:
         self.__number = number
 
     def __str__(self):
-        return f"color: {self.__color}, number: {self.__number}"
+        return f"Card: {self.__number}{self.__color}"
 
 
 class Deck:
