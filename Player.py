@@ -22,9 +22,9 @@ class Player:
         for card in self.__lst:
             cards_Sum += card.get_number()
             print(card.__str__())
-            print()
 
         print(f"sum of player is: {cards_Sum}")
+        print()
 
     def get_sum_of_player(self):
         cards_Sum = 0
@@ -43,9 +43,9 @@ class Dealer(Player):
         for card in self.__lst:
             cards_Sum += card.get_number()
             print(card.__str__())
-            print()
 
         print(f"sum of dealer is: {cards_Sum}")
+        print()
 
     def get_sum_of_dealer(self):
         cards_Sum = 0
