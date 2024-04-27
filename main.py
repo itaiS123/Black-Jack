@@ -62,6 +62,7 @@ def main():
     player = Player.Player(card1, card2)
     player.print_sum_of_player_and_cards()
 
+    # change
 
     arr = deal_cards(deck)
     card3 = arr[0]
